@@ -1,2 +1,2 @@
 # Fall_of_the_Titans
-Machine Learning in Python to find the root of the Tennessee Titans mediocracy
+Experiments in Python and Graphing to understand relations of Data
