@@ -18,14 +18,6 @@ from sklearn.svm import SVC
 filename = "football.csv"
 dataset = pandas.read_csv(filename, index_col=0)
 
-# histogram
-# dataset[['TmScore', 'OppScore', 'TotYdOff', 'TotYdDef']].hist()
-# plt.show()
-
-# scatter plot matrix
-# scatter_matrix(dataset[['TmScore', 'OppScore', 'TotYdOff', 'TotYdDef']])
-# plt.show()
-
 # pandas before the addition
 print(dataset[['Date', 'TwtCount']])
 
@@ -45,6 +37,14 @@ with open('tweets.csv', newline='') as csvfile:
     for index, row in dataset.iterrows():
         if row['Date'] in tweetdict:
             dataset.loc[index, 'TwtCount'] = tweetdict[row['Date']]
-            print(row['TwtCount'])
 
-    print(dataset[['Date', 'TwtCount']])
+# dataset after addition to show correct tweet counts
+print(dataset[['Date', 'TwtCount']])
+
+# histogram
+dataset[['TmScore', 'OppScore', 'TotYdOff', 'TwtCount']].hist()
+plt.show()
+
+# scatter plot matrix
+scatter_matrix(dataset[['TmScore', 'OppScore', 'TotYdOff', 'TwtCount']])
+plt.show()
