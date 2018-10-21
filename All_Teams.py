@@ -22,23 +22,32 @@ ds = pandas.read_csv(filename, index_col=0)
 # general form of the dictionary
 tweetdict = {"9-1-2017": 0}
 
-# DataFrame for Tweets
-index = ds.index
-columns = ['Month', 'Day', 'TweetNumber']
-tweetframe = pandas.DataFrame(index=index, columns=columns)
+# List for Tweets
+tweetlist = []
 
 # finds count of tweets and fills dataset with values
 with open('tweets2017.txt', "r") as file:
-
     # adds all values to the dictionary to count total num of tweets
     for line in file:
-        print(line)
         key = line.split(' ')[0]
         if key in tweetdict:
             tweetdict[key] = tweetdict.get(key) + 1
         else:
             tweetdict[key] = 1
 
+    # start at day 8 since 31st was a Sunday
+    dayCount = 8
+    weekCount = 16
+    totalTweets = 0
+    # adds in every day with tweet count
     for k in tweetdict:
-        date = datetime.strptime(k, "%m-%d-%Y")
-        print(date.day)
+        totalTweets += tweetdict.get(k)
+        dayCount -= 1
+        if dayCount == 0:
+            tweetlist.append(totalTweets)
+            totalTweets = 0
+            dayCount = 7
+            weekCount -= 1
+
+    # reverses tweetlist to put it in correct order
+    tweetlist.reverse()
